@@ -19,12 +19,48 @@
 //      parameters as well as return value. Also indicate the 
 //      complexity of this function (worst case).
 //********************************************************************
-int list [101];
 
-for(int i = 0; i < x; i++)
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
 {
-if (list[readinvalue] != readinvalue)
-{
-list[readinvalue] = readinvalue;
-}
+	string fname = "none";
+	cout << "Please enter the name of the file you wish to manipulate with file extension: " << endl;
+	cin >> fname;
+	ifstream input;
+	ofstream output;
+	input.open(fname);
+	output.open("Chris_Duhan_output.txt");
+	int x = 0;
+	int val = 0;
+	int cnt = 0;
+	int list[101];
+	vector <int> v;
+
+	if (input)
+	{
+		while (input >> x)
+		{
+			int * p;
+			p = new int[x];
+
+			for (int i = 0; i < x; i++)
+			{
+				input >> val;
+				if (!list[val])
+				{
+					list[val] = 1;
+					v.push_back(val);
+				}
+			}
+
+		}
+		input.close;
+	}
+    return 0;
 }
