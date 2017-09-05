@@ -46,21 +46,26 @@ int main()
 	{
 		while (input >> x)
 		{
-			int * p;
-			p = new int[x];
-
 			for (int i = 0; i < x; i++)
 			{
 				input >> val;
-				if (!list[val])
+				if (list[val] != 1)
 				{
 					list[val] = 1;
 					v.push_back(val);
+					cout << val << " ";
 				}
 			}
-
+			cout << endl;
+			int * p;
+			p = new int[v.size()];
+			for (unsigned i = 0; i < v.size(); i++)
+			{
+				p[i] = v[i];
+				list[i] = 0;
+			}
 		}
-		input.close;
+		input.close();
 	}
     return 0;
 }
