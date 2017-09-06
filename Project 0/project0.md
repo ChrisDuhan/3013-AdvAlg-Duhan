@@ -7,17 +7,17 @@
 //      Due Date: 09/06/2017
 //********************************************************************
 //      This program takes a file containing a line of numbers
-//		and checks it for duplicated numbers. It takes 
-//		non-duplicated numbers and stores them in a new array
-//		while ignoring duplicates. The input file must have the
-//		quantity of numbers on the line (minus one) as the first
-//		number on the line. When telling the program the user 
-//		must give the filename as well as the file extension.
-//		It is simple enoungh to do without containing it to
-//		it's own function so the worst case complexity that
-//		the program could experience is O(2n), occuring if there
-//		no unique numbers in the list. Otherwise the complexity
-//		is O(n).
+//	and checks it for duplicated numbers. It takes 
+//	non-duplicated numbers and stores them in a new array
+//	while ignoring duplicates. The input file must have the
+//	quantity of numbers on the line (minus one) as the first
+//	number on the line. When telling the program the user 
+//	must give the filename as well as the file extension.
+//	It is simple enoungh to do without containing it to
+//	it's own function so the worst case complexity that
+//	the program could experience is O(2n), occuring if there
+//	no unique numbers in the list. Otherwise the complexity
+//	is O(n).
 //
 //********************************************************************
 
@@ -58,7 +58,7 @@ int main()
 					list[readin_val] = 1;
 					p1[p1_pos] = readin_val;
 					unique_cnt++;			// I know p1_pos and unique_cnt are going to 
-					p1_pos++;				// be the same but they handle different things
+					p1_pos++;			// be the same but they handle different things
 				}
 			}
 
