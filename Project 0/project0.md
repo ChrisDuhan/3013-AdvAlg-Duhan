@@ -30,7 +30,8 @@ using namespace std;
 int main()
 {
 	string fname = "none";
-	cout << "Please enter the name of the file you wish to manipulate with file extension: " << endl;
+	cout << "Please enter the name of the file you wish to manipulate \
+	with file extension: " << endl;
 	cin >> fname;
 	ifstream input;
 	input.open(fname);
@@ -57,8 +58,11 @@ int main()
 				{
 					list[readin_val] = 1;
 					p1[p1_pos] = readin_val;
-					unique_cnt++;		// I know p1_pos and unique_cnt are going to 
-					p1_pos++;		// be the same but they handle different things
+					unique_cnt++;		 
+					p1_pos++;
+					// I know p1_pos and unique_cnt are going to
+					// be the same but they handle different things
+					// so I'll keep them seperate
 				}
 			}
 
