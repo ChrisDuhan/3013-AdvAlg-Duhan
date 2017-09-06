@@ -47,7 +47,7 @@ int main()
 			p1 = new int[init_array_size];
 			int p1_pos = 0;
 
-			int unique_cnt = 0;				// reseting for each array
+			int unique_cnt = 0;			// reseting for each array
 
 			for (int i = 0; i < init_array_size; i++)
 			{
@@ -57,14 +57,14 @@ int main()
 				{
 					list[readin_val] = 1;
 					p1[p1_pos] = readin_val;
-					unique_cnt++;			// I know p1_pos and unique_cnt are going to 
-					p1_pos++;			// be the same but they handle different things
+					unique_cnt++;		// I know p1_pos and unique_cnt are going to 
+					p1_pos++;		// be the same but they handle different things
 				}
 			}
 
 			for (int i = 0; i < 101; i++)
 			{
-				list[i] = 0;				// clearing for each array
+				list[i] = 0;			// clearing for each array
 			}
 
 			int * p2;
