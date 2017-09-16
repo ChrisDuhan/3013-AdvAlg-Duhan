@@ -23,9 +23,9 @@ public:
 	void push_back(int i);
 	void push_front(int i);
 	void print(int i);
-	void pop_front();
+	int pop_front();
+	int pop_back();
 	int front();
 	bool empty();
 	int size();
-
 };
