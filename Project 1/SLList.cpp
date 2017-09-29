@@ -137,9 +137,10 @@ void SLList::print(int i)
 			tracker = tracker->_next;
 		}
 	}
+	cout << endl;
 }
 
-//Remove the first node in the list
+
 //********************************************************************
 //		int SLList::pop_front()
 //		Parameters: None, returns an integer
@@ -149,24 +150,25 @@ void SLList::print(int i)
 //********************************************************************
 int SLList::pop_front()
 {
-	if (_head->_value = 0)
+	if (_head->_value == 0) {
+		cout << "No items in list.\n";
+		return -1;
+	}
+	if (_head->_value > 0)
 	{
 		Node * popper = _head->_next;
 		_head->_next = popper->_next;
 		delete popper;
 		_head->_value--;
 		popper = nullptr;
-		return 0;
 	}
-	else
-	{
-		cout << "No items in list.\n";
-		return 0;
+	if (_head->_value == 0) {
+		_tail = _head;
 	}
+		return 0;
+	
 }
 
-//Remove the last item in the list...
-//It has n complexity so don't use it much
 //********************************************************************
 //		int SLList::pop_back()
 //		Parameters: None, returns an integer
@@ -195,9 +197,9 @@ int SLList::pop_back()
 		cout << "No items in list.\n";
 		return 0;
 	}
-	
+
 }
-//Returns the value of the first node
+
 //********************************************************************
 //		int SSList::front()
 //		Parameters: None, returns an integer
@@ -210,7 +212,6 @@ int SLList::front()
 	return _head->_next->_value;
 }
 
-//Returns true/false if the list contains values or not
 //********************************************************************
 //		bool SSList::empty()
 //		Parameters: None, returns a boolean value
@@ -224,7 +225,6 @@ bool SLList::empty()
 	return 1;
 }
 
-//Returns the quantity of nodes in the list
 //********************************************************************
 //		int SSList::size()
 //		Parameters: None, returns an integer
@@ -243,9 +243,13 @@ int SLList::size()
 // Also allows the swap(A,B);
 SLList & SLList::operator=(const SLList & rhs) {
 	if (&rhs != this) {// if not A=A then do a copy
-		SLList N = rhs;// create a copy of rhs. Uses copy constructor
-		swap(*this, N);
-		//Note that this new N gets destroyed on exit of this method
+		Node *temp = rhs._head->_next;
+		while (_head->_value > 0) this->pop_front();
+		for (int i = 0; i < rhs._head->_value; i++)
+		{
+			(this)->push_back(temp->_value);
+			temp = temp->_next;
+		}
 	}
 	return *this;
 }
