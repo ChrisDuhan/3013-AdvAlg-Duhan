@@ -6,6 +6,7 @@ class ResearchBST
 	typedef treeNode* TreeNodeptr;
 	std::vector <int> valueList;// holds the values presently in the tree. Normally not in a tree
 	int _size;//number of values in tree and in vector;
+
 	struct treeNode {
 		int _value;
 		TreeNodeptr _left;
@@ -13,6 +14,7 @@ class ResearchBST
 		treeNode(int key) : _value(key), _left(nullptr), _right(nullptr) {}
 	};
 	TreeNodeptr _root;
+
 	void insertAux(TreeNodeptr &, const int &);//1-1
 	void inOrder(TreeNodeptr tree);//2-1
 	void SdeleteAux(TreeNodeptr &, int);//3-1
