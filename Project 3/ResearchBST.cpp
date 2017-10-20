@@ -1,22 +1,17 @@
 //********************************************************************
-//      Project #3: Research Binary Search Tree
-//      Name: Chris Duhan
-//      Class: Advanced Algorithms and Data Structures
-//      Instructor: Mr. Richard Simpson
-//      Due Date: 10/25/2017
+//  Project #3: Research Binary Search Tree
+//  Name: Chris Duhan
+//  Class: Advanced Algorithms and Data Structures
+//  Instructor: Mr. Richard Simpson
+//  Due Date: 10/25/2017
 //********************************************************************
-//      This program takes a file containing a line of numbers			//
-//		and checks it for duplicated numbers. It takes 
-//		non-duplicated numbers and stores them in a new array
-//		while ignoring duplicates. The input file must have the
-//		quantity of numbers on the line (minus one) as the first
-//		number on the line. When telling the program the user 
-//		must give the filename as well as the file extension.
-//		It is simple enoungh to do without containing it to
-//		it's own function so the worst case complexity that
-//		the program could experience is O(2n), occuring if there
-//		no unique numbers in the list. Otherwise the complexity
-//		is O(n).
+//  This class is designed for the researching of Binary Search Trees
+//	(BST)s. 
+//	I will refer to the pointer that points to the root node of a
+//	given tree as TreeNodeptr.
+//	When the notation O(h) is seen it should be interpreted as being
+//	as complex as the length of the longest "branch" in the tree which
+//	at worst could be n, the total number of nodes in the tree.
 //
 //********************************************************************
 
@@ -52,7 +47,7 @@ ResearchBST::ResearchBST(int n)
 //	ResearchBST:: ~ResearchBST()
 //	Parameters: None
 //	Complexity: O(1)
-//	Default destructor. It calls the destroyTree() auxilliary method
+//	Standard destructor. It calls the destroyTree() auxilliary method
 //********************************************************************
 ResearchBST::~ResearchBST()
 {
@@ -79,7 +74,7 @@ void ResearchBST::insertAux(TreeNodeptr & tree, const int & item)//1-1
 		else
 			insertAux(tree->_right, item);
 	valueList.push_back(item);
-	_size++;
+	++_size;
 }
 
 //********************************************************************
@@ -99,7 +94,8 @@ void ResearchBST::Insert(int value)//1-2
 //	ResearchBST::inOrder()
 //	Parameters: TreeNodeptr
 //	Complexity O(n)
-//	The auxilliary that prints the BST's values in accending order.
+//	The auxilliary method that prints the BST's values in accending 
+//	order.
 //********************************************************************
 void ResearchBST::inOrder(TreeNodeptr tree)//2-1
 {
@@ -113,7 +109,7 @@ void ResearchBST::inOrder(TreeNodeptr tree)//2-1
 
 //********************************************************************
 //	ResearchBST::InOrder()
-//	Parameters: none
+//	Parameters: None
 //	Complexity: O(1)
 //	A publicly called function to print the BST in accending order.
 //	Actually calls the inorder() auxilliary method.
@@ -123,14 +119,17 @@ void ResearchBST::InOrder()//2-2
 	inOrder(this->_root);
 }
 
-//********************************************************************//
+//********************************************************************
 //	ResearchBST::SdeleteAux()
-//	Parameters: pTreeNode to the tree and an int to delete
-//	Complexity: O(n)
-//	Auxilliary function called by Sdelete
-//	Deletes a single int, x from the tree
-//	May run n times if the tree is entirely unbalanced and the last node needs
-//	to be deleted
+//	Parameters: TreeNodeptr and the integer value of the node to be
+//				deleted.
+//	Complexity: O(h)
+//	The auxilliary method that find the node containing the value to
+//	be deleted and uses a different way to remove it depending on
+//	whether the node to be deleted has zero, one or two children.
+//	It is the Successor delete method so to find the successor node it
+//	moves to the right of the node once then as far left as it can
+//	without going right again.
 //********************************************************************
 void ResearchBST::SdeleteAux(TreeNodeptr & root, int x)//3-1
 {
@@ -189,25 +188,29 @@ void ResearchBST::SdeleteAux(TreeNodeptr & root, int x)//3-1
 	}
 }
 
-//********************************************************************//
+//********************************************************************
 //	ResearchBST::Sdelete()
-//	Parameters: x: a single value to delete from the tree
+//	Parameters: the value in the node to be deleted.
 //	Complexity: O(1)
-//	public function, accepts a value, x, to be deleted, calls SdeleteAux()
+//	A publicly called function that calls SdeleteAux() and passes it
+//	the value in the node to be deleted.
 //********************************************************************
 void ResearchBST::Sdelete(int val)//3-2
 {
 	SdeleteAux(this->_root, val);
 }
 
-//********************************************************************//
+//********************************************************************
 //	ResearchBST::PdeleteAux()
-//	Parameters: pTreeNode to the tree and an int to delete
-//	Complexity: O(n)
-//	Auxilliary function called by pDelete
-//	Deletes a single int, x from the tree
-//	May run n times if the tree is entirely unbalanced and the last node needs
-//	to be deleted
+//	Parameters: TreeNodeptr and the integer value of the node to be
+//				deleted.
+//	Complexity: O(h)
+//	The auxilliary method that find the node containing the value to
+//	be deleted and uses a different way to remove it depending on
+//	whether the node to be deleted has zero, one or two children.
+//	It is the Predecessor delete method so to find the predecessor
+//	node it moves to the left of the node once then as far right as 
+//	it can without going left again.
 //********************************************************************
 void ResearchBST::PdeleteAux(TreeNodeptr & root, int x)//5-1 currently sdelete still
 {
@@ -266,23 +269,24 @@ void ResearchBST::PdeleteAux(TreeNodeptr & root, int x)//5-1 currently sdelete s
 	}
 }
 
-//********************************************************************//
+//********************************************************************
 //	ResearchBST::Pdelete()
-//	Parameters: x: a single value to delete from the tree
+//	Parameters: the value in the node to be deleted.
 //	Complexity: O(1)
-//	public function, accepts a value, x, to be deleted, calls PdeleteAux()
+//	A publicly called function that calls PdeleteAux() and passes it
+//	the value in the node to be deleted.
 //********************************************************************
 void ResearchBST::Pdelete(int val)//5-2
 {
 	PdeleteAux(this->_root, val);
 }
 
-//********************************************************************//
+//********************************************************************
 //	ResearchBST::destroyTree()
-//	Paprameters: pTreeNode to the BST
+//	Paprameters: TreeNodeptr
 //	Complexity: O(n)
-//	Auxilliary function for deleting every single node in the tree
-//	called by the constructor
+//	The auxilliary function that deletes every node in the tree.
+//	It's called by the destructor.
 //********************************************************************
 void ResearchBST::destroyTree(TreeNodeptr & tree)//4-1
 {
