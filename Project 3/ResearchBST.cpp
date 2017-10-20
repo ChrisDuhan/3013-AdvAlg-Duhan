@@ -281,6 +281,18 @@ void ResearchBST::Pdelete(int val)//5-2
 	PdeleteAux(this->_root, val);
 }
 
+int iplAux(TreeNodeptr & root, int val)
+{
+	if (root == nullptr)
+		return 0;
+	return(val + iplAux(root -> _right, ++val) + iplAux(root -> _left, ++val));
+}
+
+int IPL()
+{
+	int val = 0;
+	return iplAux(this -> root, val);
+}
 //********************************************************************
 //	ResearchBST::destroyTree()
 //	Paprameters: TreeNodeptr
