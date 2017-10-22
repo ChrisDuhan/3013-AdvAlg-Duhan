@@ -1,5 +1,8 @@
 #pragma once
 #include <vector>
+#define TREESIZE 256
+#define VALUESIZE 32000
+#define INSDELPAIRS 100000
 class ResearchBST
 {
 	struct treeNode;
