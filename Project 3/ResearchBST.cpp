@@ -37,9 +37,8 @@ ResearchBST::ResearchBST(int n)
 
 	for (int i = 0; i < n; ++i)
 	{
-		x = rand() % 32000;
-		insertAux(_root, x);
-		cout << x << endl;
+		x = rand() % VALUESIZE;
+		Insert(x);
 	}
 }
 
@@ -64,7 +63,7 @@ ResearchBST::~ResearchBST()
 //	node, creates it and initializes its value to the passed in
 //	integer.
 //********************************************************************
-void ResearchBST::insertAux(TreeNodeptr & tree, const int & item)//1-1
+void ResearchBST::insertAux(TreeNodeptr & tree, const int & item)
 {
 	if (tree == nullptr)
 		tree = new treeNode(item);
@@ -73,8 +72,6 @@ void ResearchBST::insertAux(TreeNodeptr & tree, const int & item)//1-1
 			insertAux(tree->_left, item);
 		else
 			insertAux(tree->_right, item);
-	valueList.push_back(item);
-	++_size;
 }
 
 //********************************************************************
@@ -85,9 +82,11 @@ void ResearchBST::insertAux(TreeNodeptr & tree, const int & item)//1-1
 //	A publicly called function, it passes the integer that was passed
 //	to it along to the insertAux() auxilliary method.
 //********************************************************************
-void ResearchBST::Insert(int value)//1-2
+void ResearchBST::Insert(int value)
 {
 	insertAux(this->_root, value);
+	valueList.push_back(value);
+	++_size;
 }
 
 //********************************************************************
@@ -97,7 +96,7 @@ void ResearchBST::Insert(int value)//1-2
 //	The auxilliary method that prints the BST's values in accending 
 //	order.
 //********************************************************************
-void ResearchBST::inOrder(TreeNodeptr tree)//2-1
+void ResearchBST::inOrder(TreeNodeptr tree)
 {
 	if (tree != nullptr)
 	{
@@ -114,7 +113,7 @@ void ResearchBST::inOrder(TreeNodeptr tree)//2-1
 //	A publicly called function to print the BST in accending order.
 //	Actually calls the inorder() auxilliary method.
 //********************************************************************
-void ResearchBST::InOrder()//2-2
+void ResearchBST::InOrder()
 {
 	inOrder(this->_root);
 }
@@ -131,7 +130,7 @@ void ResearchBST::InOrder()//2-2
 //	moves to the right of the node once then as far left as it can
 //	without going right again.
 //********************************************************************
-void ResearchBST::SdeleteAux(TreeNodeptr & root, int x)//3-1
+void ResearchBST::SdeleteAux(TreeNodeptr & root, int x)
 {
 	if (root != nullptr)
 	{
@@ -169,8 +168,9 @@ void ResearchBST::SdeleteAux(TreeNodeptr & root, int x)//3-1
 				// Here root has two children
 				// We first find the successor
 			{
+				predPtr = root;
 				tempPtr = root->_right; // Go right
-									   // and the all the way to the left
+										// and the all the way to the left
 				while (tempPtr->_left != nullptr)
 				{
 					predPtr = tempPtr;
@@ -195,7 +195,7 @@ void ResearchBST::SdeleteAux(TreeNodeptr & root, int x)//3-1
 //	A publicly called function that calls SdeleteAux() and passes it
 //	the value in the node to be deleted.
 //********************************************************************
-void ResearchBST::Sdelete(int val)//3-2
+void ResearchBST::Sdelete(int val)
 {
 	SdeleteAux(this->_root, val);
 }
@@ -212,7 +212,7 @@ void ResearchBST::Sdelete(int val)//3-2
 //	node it moves to the left of the node once then as far right as 
 //	it can without going left again.
 //********************************************************************
-void ResearchBST::PdeleteAux(TreeNodeptr & root, int x)//5-1 currently sdelete still
+void ResearchBST::PdeleteAux(TreeNodeptr & root, int x)
 {
 	if (root != nullptr)
 	{
@@ -250,8 +250,9 @@ void ResearchBST::PdeleteAux(TreeNodeptr & root, int x)//5-1 currently sdelete s
 				// Here root has two children
 				// We first find the successor
 			{
+				predPtr = root;
 				tempPtr = root->_left; // Go left
-										// and the all the way to the right
+									   // and the all the way to the right
 				while (tempPtr->_right != nullptr)
 				{
 					predPtr = tempPtr;
@@ -276,22 +277,56 @@ void ResearchBST::PdeleteAux(TreeNodeptr & root, int x)//5-1 currently sdelete s
 //	A publicly called function that calls PdeleteAux() and passes it
 //	the value in the node to be deleted.
 //********************************************************************
-void ResearchBST::Pdelete(int val)//5-2
+void ResearchBST::Pdelete(int val)
 {
 	PdeleteAux(this->_root, val);
 }
 
-int iplAux(TreeNodeptr & root, int val)
+//********************************************************************
+//	ResearchBST::RandDelInsPair()
+//	Parameters: An int used to identify what type of delete to use
+//	Complexity: O(1)
+//	Randomly selects a value to be deleted from both the tree and 
+//	the vector, and then inserts a new node.
+//********************************************************************
+void ResearchBST::RandDelInsPair(int dType) // check this
+{
+	int randIndex = rand() % valueList.size();
+	int valueAt = valueList[randIndex];
+	int insVal = rand() % VALUESIZE;
+	valueList[randIndex] = insVal;
+	if (dType == 1)
+		PdeleteAux(_root, valueAt);
+	else
+		SdeleteAux(_root, valueAt);
+	insertAux(this->_root, insVal);
+}
+
+//********************************************************************
+//	ResearchBST::iplAux()
+//	Parameters: TreeNodeptr and an int to total the ipl.
+//	Complexity: O(n)
+//	The auxilliary function that sums up the "weights" for each node
+//	in the tree.
+//********************************************************************
+int ResearchBST::iplAux(TreeNodeptr & root, int val)
 {
 	if (root == nullptr)
 		return 0;
-	return(val + iplAux(root -> _right, ++val) + iplAux(root -> _left, ++val));
+	return(val + iplAux(root->_right, ++val) + iplAux(root->_left, ++val));
 }
 
-int IPL()
+//********************************************************************
+//	ResearchBST::IPL()
+//	Parameters: None
+//	Complexity: O(1)
+//	A publicly called function that calls iplAux() and passes it
+//	the accumulator.
+//********************************************************************
+int ResearchBST::IPL()
 {
 	int val = 0;
-	return iplAux(this -> root, val);
+	return iplAux(this->_root, val);
 }
 //********************************************************************
 //	ResearchBST::destroyTree()
@@ -300,7 +335,7 @@ int IPL()
 //	The auxilliary function that deletes every node in the tree.
 //	It's called by the destructor.
 //********************************************************************
-void ResearchBST::destroyTree(TreeNodeptr & tree)//4-1
+void ResearchBST::destroyTree(TreeNodeptr & tree)
 {
 	if (tree != nullptr)
 	{
@@ -310,4 +345,3 @@ void ResearchBST::destroyTree(TreeNodeptr & tree)//4-1
 		tree = nullptr;
 	}
 }
-
