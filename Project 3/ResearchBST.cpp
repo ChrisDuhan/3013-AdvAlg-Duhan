@@ -102,7 +102,7 @@ void ResearchBST::inOrder(TreeNodeptr tree)
 	{
 		inOrder(tree->_left);
 		cout << tree->_value << endl;
-		(tree->_right);
+		inOrder(tree->_right);
 	}
 }
 
