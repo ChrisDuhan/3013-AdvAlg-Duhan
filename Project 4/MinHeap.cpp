@@ -32,19 +32,19 @@ void MinHeap::minHeapify(vector<int> heap, int i)
 	r = right(i);
 	int temp = heap[i];
 	int j = 2 * i;
-	while (j <= n)
+	while (j <= heap.size())
 	{
-		if (j < n && a[j + 1] < a[j])
+		if (j < heap.size() && heap[j + 1] < heap[j])
 			j = j + 1;
-		if (temp < a[j])
+		if (temp < heap[j])
 			break;
-		else if (temp >= a[j])
+		else if (temp >= heap[j])
 		{
-			a[j / 2] = a[j];
+			heap[j / 2] = heap[j];
 			j = 2 * j;
 		}
 	}
-	a[j / 2] = temp;
+	heap[j / 2] = temp;
 	return;
 }
 
