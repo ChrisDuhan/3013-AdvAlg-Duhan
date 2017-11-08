@@ -30,9 +30,10 @@ int MinHeap::right(int i)
 	return (i << 1) + 1; 
 }
 
-void MinHeap::makeHeap()
+void MinHeap::makeHeap(vector<int> heap)
 {
-
+	for (i = heap.size()/2 downto 1)
+		minHeapify(heap, i);
 }
 
 void MinHeap::minHeapify(vector<int> heap, int i)
