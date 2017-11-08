@@ -8,7 +8,7 @@ public:
 	MinHeap();
 	~MinHeap();
 	int Size();
-	int Insert();
+	int Insert(int);
 	int Extract();
 	int parent(int);
 	int left(int);
