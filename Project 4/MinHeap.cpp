@@ -15,6 +15,21 @@ MinHeap::~MinHeap()
 	
 }
 
+int MinHeap::Size()
+{
+
+}
+
+int MinHeap::Insert(int i)
+{
+
+}
+
+int MinHeap::Extract()
+{
+
+}
+
 int MinHeap::parent(int i) 
 {
 	return i >> 1;
