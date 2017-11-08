@@ -6,19 +6,29 @@ using namespace std;
 
 MinHeap::MinHeap()
 {
+	
 }
 
 
 MinHeap::~MinHeap()
 {
+	
 }
 
 int MinHeap::parent(int i) 
 {
 	return i >> 1;
 }
-int MinHeap::left(int i) { return i << 1; }
-int MinHeap::right(int i) { return (i << 1) + 1; }
+
+int MinHeap::left(int i)
+{
+	return i << 1; 
+}
+
+int MinHeap::right(int i)
+{ 
+	return (i << 1) + 1; 
+}
 
 void MinHeap::makeHeap()
 {
