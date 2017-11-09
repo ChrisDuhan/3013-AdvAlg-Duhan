@@ -12,6 +12,11 @@ int main()
 		myheap.Insert(i);
 	}
 	myheap.printHeap();
+	cout << endl;
+	while(!myheap.Empty())
+	{
+		cout << myheap.Extract() << endl;
+	}
 
-    return 0;
+	return 0;
 }
