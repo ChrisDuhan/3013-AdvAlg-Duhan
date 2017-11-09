@@ -1,15 +1,10 @@
-#include "Heap.h"
-#include <iostream>
-
-using namespace std;
 /*
 int main()
 {
 	Heap myheap;
-
-	for (int i = 20; i > 0; --i)
+	for (int i = 0; i < 100; ++i)
 	{
-		myheap.Insert(i);
+		myheap.Insert(rand() % 100);
 	}
 	myheap.printHeap();
 	cout << endl;
@@ -17,7 +12,6 @@ int main()
 	{
 		cout << myheap.Extract() << endl;
 	}
-
 	return 0;
 }
 */
@@ -36,8 +30,7 @@ int main()
 		}
 		sum = total = 0;
 		sum = myheap.Extract();
-		myheap.makeHeap(myheap.Size());
-		myheap.Heapify(myheap.Size());
+		
 		while (!myheap.Empty())
 		{
 			sum += myheap.Extract();
