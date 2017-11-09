@@ -12,12 +12,13 @@ public:
 	Heap(vector<int>);
 	~Heap();
 	int Size();
+	bool Empty();
 	void Insert(int);
 	int Extract();
 	int Parent(int);
 	int Left(int);
 	int Right(int);
-	void makeHeap(vector<int>);
+	void makeHeap(int);
 	void Heapify(int);
 	void printHeap();
 };
