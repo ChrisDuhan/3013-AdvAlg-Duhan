@@ -1,20 +1,7 @@
-/*
-int main()
-{
-	Heap myheap;
-	for (int i = 0; i < 100; ++i)
-	{
-		myheap.Insert(rand() % 100);
-	}
-	myheap.printHeap();
-	cout << endl;
-	while(!myheap.Empty())
-	{
-		cout << myheap.Extract() << endl;
-	}
-	return 0;
-}
-*/
+#include <iostream>
+#include <vector>
+
+using namespace std;
 
 int main()
 {
@@ -29,12 +16,19 @@ int main()
 			myheap.Insert(num);
 		}
 		sum = total = 0;
-		sum = myheap.Extract();
+		//sum = myheap.Extract();
 		
-		while (!myheap.Empty())
+		while (myheap.Size() != 1)
 		{
-			sum += myheap.Extract();
-			total += sum;
+		  num = myheap.Extract();
+			sum = num + myheap.Extract();
+
+			total += sum; //add weight
+
+			//push the new sum
+			myheap.Insert(sum);
+			//sum += myheap.Extract();
+			//total += sum;
 		}
 		cout << total << endl;
 		cin >> n;
