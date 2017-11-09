@@ -1,3 +1,8 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
 Heap::Heap()
 {
 	heap.push_back(-1); // occupies index 0
@@ -38,11 +43,11 @@ void Heap::Insert(int i)
 
 int Heap::Extract()
 {
-	int front = heap[1];
-	swap(heap[1], heap[Size()]);
-	heap.pop_back();
-	Heapify(1);
-	return front;
+	  int front = heap[1];
+	  swap(heap[1], heap[Size()]);
+	  heap.pop_back();
+	  Heapify(1);
+	  return front;
 }
 
 int Heap::Parent(int i)
