@@ -29,15 +29,23 @@ int Heap::Size()
 	return heap.size() - 1;
 }
 
+bool Heap::Empty()
+{
+	if(Size() == 0)
+		return 1;
+	return 0;
+}
+
 void Heap::Insert(int i)
 {
 	heap.push_back(i);
+	makeHeap(Size());
 }
 
 int Heap::Extract()
 {
-	int front = heap.front();
-	swap(heap[1], heap[heap.size() - 1]);
+	int front = heap[1];
+	swap(heap[1], heap[Size()]);
 	heap.pop_back();
 	Heapify(1);
 	return front;
@@ -45,31 +53,34 @@ int Heap::Extract()
 
 int Heap::Parent(int i)
 {
-	return (i - 1) >> 1;
+	return i >> 1;
 }
 
 int Heap::Left(int i)
 {
-	return (i << 1) + 1;
+	return i << 1;
 }
 
 int Heap::Right(int i)
 {
-	return (i << 1) + 2;
+	return (i << 1) + 1;
 }
 
-void Heap::makeHeap(vector<int> heap)//
+void Heap::makeHeap(int i)
 {
-	//for (i = heap.size() / 2 downto 1)
-	//	Heapify(heap, i);
+	if (i && heap[Parent(i)] > heap[i])
+	{
+		swap(heap[i], heap[Parent(i)]);
+		makeHeap(Parent(i));
+	}
 }
 
-void Heap::Heapify(int i)//
+void Heap::Heapify(int i)
 {
 	int l = Left(i);
 	int r = Right(i);
 	int smallest;
-	
+
 	if (l < Size() && heap[l] < heap[i])
 		smallest = l;
 	else
@@ -85,7 +96,7 @@ void Heap::Heapify(int i)//
 
 void Heap::printHeap()
 {
-	for (int i = 1; i < Size(); ++i)
+	for (int i = 1; i <= Size(); ++i)
 	{
 		cout << heap[i] << " ";
 	}
