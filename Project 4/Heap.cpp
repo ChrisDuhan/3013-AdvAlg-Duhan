@@ -1,9 +1,3 @@
-#include "Heap.h"
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
 Heap::Heap()
 {
 	heap.push_back(-1); // occupies index 0
@@ -81,11 +75,11 @@ void Heap::Heapify(int i)
 	int r = Right(i);
 	int smallest;
 
-	if (l < Size() && heap[l] < heap[i])
+	if (l <= Size() && heap[l] < heap[i])
 		smallest = l;
 	else
 		smallest = i;
-	if (r < Size() && heap[r] < heap[smallest])
+	if (r <= Size() && heap[r] < heap[smallest])
 		smallest = r;
 	if (smallest != i)
 	{
