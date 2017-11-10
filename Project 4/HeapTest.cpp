@@ -1,12 +1,18 @@
+//********************************************************************
+//  A solution to the UVa problem 10954 - Add all, using a MinHeap
+//	class I wrote.
+//	The way it expects you to solve the problem is not made very clear
+//	in the instructions.
+//********************************************************************
+#include "Heap.h"
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
 int main()
 {
 	int n, num, sum, total;
-	cin >> n;
+	cin >> n;							
 	while (n != 0)
 	{
 		Heap myheap;
@@ -17,10 +23,10 @@ int main()
 		}
 		sum = total = 0;
 		//sum = myheap.Extract();
-		
+
 		while (myheap.Size() != 1)
 		{
-		  num = myheap.Extract();
+			num = myheap.Extract();
 			sum = num + myheap.Extract();
 
 			total += sum; //add weight
