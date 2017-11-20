@@ -21,8 +21,19 @@
 
 using namespace std;
 
-void Graph::DFS_Visit(int, vector<int>&)
+void Graph::DFS_Visit(int node, vector<int>& parents)
 {
+	Color[node] = GREY;
+	for (auto child : G[node])
+	{
+		if (Color[child.first] == WHITE)
+		{
+			DFS_Visit(child.first, parents);
+			// where do i mark parents?
+		}
+	}
+
+	Color[node] = BLACK;
 }
 
 //********************************************************************
@@ -52,16 +63,18 @@ Graph::~Graph()
 }
 
 //********************************************************************
-//	Graph::AddNewEdge()
-//	Parameters: Two integers: the node we begin at, the node we end at 
+//	Graph::AddEdge()
+//	Parameters: Three integers: the node we begin at, the node we end
+//				at and the weight between them (default is zero)
 //	Complexity: O(1)
-//	For the given start node, add an end node with placeholder weight.
+//	For the given start node, add an end node with the given weight, 
+//	or the default weight.
 //********************************************************************
-void Graph::AddNewEdge(int start, int end)
+void Graph::AddEdge(int start, int end, int weight = 0)
 {
-	G[start].push_back(make_pair(end, -1));
+	G[start].push_back(make_pair(end, weight));
 	if (dir == UNDIRECTED)	// Swap start and end
-		G[end].push_back(make_pair(start, -1));
+		G[end].push_back(make_pair(start, weight));
 }
 
 //********************************************************************
@@ -75,18 +88,18 @@ void Graph::AddNewEdge(int start, int end)
 void Graph::AddEdgeWeight(int start, int end, int weight)
 {
 	for (int i = 0; i < G[start].size(); ++i)
-		if (get<0>(G[start][i]) == end)
-			get<1>(G[start][i]) = weight;
+		if (G[start][i].first == end)
+			G[start][i].second = weight;
 
 	if (dir == UNDIRECTED)	// Swap start and end
 		for (int i = 0; i < G[end].size(); ++i)
-			if (get<0>(G[end][i]) == start)
-				get<1>(G[end][i]) = weight;
+			if (G[end][i].first == start)
+				G[end][i].second = weight;
 }
 
 vector<int> Graph::BFS(int startNode)
 {
-	vector<color> nodeColor(G.size(), WHITE);
+	vector<color> Color(G.size(), WHITE);
 	vector<int> parents;
 	queue<int> Q;
 	Q.push(startNode);	// No init list?
@@ -99,11 +112,11 @@ vector<int> Graph::BFS(int startNode)
 
 		for (auto child : G[node])
 		{
-			if (Color[get<1>(child)] == WHITE)
+			if (Color[child.first] == WHITE)
 			{
-				Color[get<1>(child)] = GREY;
-				parents[get<0>(child)] = node;
-				Q.push(get<0>(child));
+				Color[child.first] = GREY;
+				parents[child.first] = node;
+				Q.push(child.first);
 			}
 		}
 		Color[node] = BLACK;
@@ -111,7 +124,19 @@ vector<int> Graph::BFS(int startNode)
 	return parents;
 }
 
-vector<int> Graph::DFS(int)
+vector<int> Graph::DFS(int //start node)
 {
+	vector<color> Color(G.size(), WHITE);
+	vector<int> parents;
+	//int time = 0;
+
+	for (int i = 0; i < G.size(); ++i)
+	{
+		if (Color[i] == WHITE)
+		{
+			DFS_Visit(i, parents);
+		}
+	}
+
 	return vector<int>();
 }
