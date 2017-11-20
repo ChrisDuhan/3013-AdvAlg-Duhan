@@ -13,8 +13,8 @@ class Graph
 public:
 	Graph(int, dtype); // resizes G to int and sets dir to type.
 	~Graph();
-	// NOTE:  both AddNewEdge and AddEdgeWeight load both edges if dir = UNDIRECTED
-	void AddNewEdge(int, int);
+	// NOTE: AddEdge loads both edges if dir = UNDIRECTED
+	void AddEdge(int, int, int);
 	void AddEdgeWeight(int, int, int);
 	vector<int> BFS(int);// return the parent vector (ie the BFS tree)
 	vector<int> DFS(int);// dito
