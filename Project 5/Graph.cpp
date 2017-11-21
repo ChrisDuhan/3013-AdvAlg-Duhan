@@ -3,7 +3,7 @@
 //	Name: Chris Duhan
 //	Class: Advanced Algorithms and Data Structures
 //	Instructor: Mr. Richard Simpson
-//	Due Date: 11/21?/2017
+//	Due Date: 11/21/2017
 //********************************************************************
 //	This program creates a graph based on an adjacency list
 //	implemeted by a vector, holding vectors of pairs. The pairs hold
@@ -21,6 +21,13 @@
 
 using namespace std;
 
+//********************************************************************
+//	Graph::DFS_Visit()
+//	Parameters: An integer for the node that we begin the search at,
+//				and the vector that shows the path through the graph
+//	Complexity: O(V+E)
+//	
+//********************************************************************
 void Graph::DFS_Visit(int node, vector<int>& parents)
 {
 	Color[node] = GREY;
@@ -28,8 +35,8 @@ void Graph::DFS_Visit(int node, vector<int>& parents)
 	{
 		if (Color[child.first] == WHITE)
 		{
+			parents[child.first] = node;
 			DFS_Visit(child.first, parents);
-			// where do i mark parents?
 		}
 	}
 
@@ -99,8 +106,12 @@ void Graph::AddEdgeWeight(int start, int end, int weight)
 
 vector<int> Graph::BFS(int startNode)
 {
-	vector<color> Color(G.size(), WHITE);
-	vector<int> parents;
+	Color.resize(G.size());
+	for (int i = 0; i < G.size(); ++i)	// Init Color as all white
+	{
+		Color[i] = WHITE;
+	}
+	vector<int> parents(G.size());
 	queue<int> Q;
 	Q.push(startNode);	// No init list?
 	int node;
@@ -121,22 +132,40 @@ vector<int> Graph::BFS(int startNode)
 		}
 		Color[node] = BLACK;
 	}
+	parents.push_back(-1);
 	return parents;
 }
 
-vector<int> Graph::DFS(int //start node)
+//********************************************************************
+//	Graph::DFS()
+//	Parameters: An integer for the node that we begin the search at
+//	Complexity: O(V+E)
+//	
+//********************************************************************
+vector<int> Graph::DFS(int start)
 {
-	vector<color> Color(G.size(), WHITE);
-	vector<int> parents;
-	//int time = 0;
-
-	for (int i = 0; i < G.size(); ++i)
+	Color.resize(G.size());
+	for (int i = 0; i < G.size(); ++i)	// Init Color as all white
 	{
-		if (Color[i] == WHITE)
+		Color[i] = WHITE;
+	}
+	vector<int> parents(G.size());
+
+	if (start == -1)
+	{
+		for (int i = 0; i < G.size(); ++i)
 		{
-			DFS_Visit(i, parents);
+			if (Color[i] == WHITE)
+			{
+				DFS_Visit(i, parents);
+			}
 		}
 	}
+	else
+		if (Color[start] == WHITE)
+		{
+			DFS_Visit(start, parents);
+		}
 
-	return vector<int>();
+	return parents;
 }
