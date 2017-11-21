@@ -19,14 +19,19 @@
 #include <queue>
 #include <iostream>
 
+#define WIP 0;
+
 using namespace std;
 
 //********************************************************************
 //	Graph::DFS_Visit()
 //	Parameters: An integer for the node that we begin the search at,
-//				and the vector that shows the path through the graph
+//				and the vector that shows the path through the graph,
+//				passed to the function by reference as the calling 
+//				function created it.
 //	Complexity: O(V+E)
-//	
+//	The function that produces the vector representing the depth-first
+//	tree. 
 //********************************************************************
 void Graph::DFS_Visit(int node, vector<int>& parents)
 {
@@ -84,6 +89,7 @@ void Graph::AddEdge(int start, int end, int weight = 0)
 		G[end].push_back(make_pair(start, weight));
 }
 
+#if WIP
 //********************************************************************
 //	Graph::AddEdgeWeight()
 //	Parameters: Three integers: the node we begin at, the node we end 
@@ -103,7 +109,15 @@ void Graph::AddEdgeWeight(int start, int end, int weight)
 			if (G[end][i].first == start)
 				G[end][i].second = weight;
 }
+#endif
 
+//********************************************************************
+//	Graph::BFS()
+//	Parameters: An integer for the node that we begin the search at
+//	Complexity: O(V+E)
+//	The function that produces the vector representing the breadth-
+//	first tree.
+//********************************************************************
 vector<int> Graph::BFS(int startNode)
 {
 	Color.resize(G.size());
@@ -111,7 +125,7 @@ vector<int> Graph::BFS(int startNode)
 	{
 		Color[i] = WHITE;
 	}
-	vector<int> parents(G.size());
+	vector<int> parents(G.size(), -1);
 	queue<int> Q;
 	Q.push(startNode);	// No init list?
 	int node;
@@ -132,7 +146,6 @@ vector<int> Graph::BFS(int startNode)
 		}
 		Color[node] = BLACK;
 	}
-	parents.push_back(-1);
 	return parents;
 }
 
@@ -140,7 +153,9 @@ vector<int> Graph::BFS(int startNode)
 //	Graph::DFS()
 //	Parameters: An integer for the node that we begin the search at
 //	Complexity: O(V+E)
-//	
+//	The function that decides how to perform the depth-first search,
+//	then calls DFS_Visit() a certain way depending on what node we
+//	want to start at.
 //********************************************************************
 vector<int> Graph::DFS(int start)
 {
@@ -149,9 +164,9 @@ vector<int> Graph::DFS(int start)
 	{
 		Color[i] = WHITE;
 	}
-	vector<int> parents(G.size());
+	vector<int> parents(G.size(), -1);
 
-	if (start == -1)
+	if (start == -1)	// Start from the first item, index 0
 	{
 		for (int i = 0; i < G.size(); ++i)
 		{
@@ -161,7 +176,7 @@ vector<int> Graph::DFS(int start)
 			}
 		}
 	}
-	else
+	else	// Start from the choosen node, might miss some of the graph
 		if (Color[start] == WHITE)
 		{
 			DFS_Visit(start, parents);
