@@ -125,7 +125,7 @@ int Heap::Extract()
 //	The binary shift operation is a faster way to get the same 
 //	result.
 //********************************************************************
-int Heap::Parent(int i)
+inline int Heap::Parent(int i)
 {
 	return i >> 1;
 }
@@ -140,7 +140,7 @@ int Heap::Parent(int i)
 //	The binary shift operation is a faster way to get the same 
 //	result.
 //********************************************************************
-int Heap::Left(int i)
+inline int Heap::Left(int i)
 {
 	return i << 1;
 }
@@ -156,7 +156,7 @@ int Heap::Left(int i)
 //	The binary shift operation is a faster way to get the same 
 //	result.
 //********************************************************************
-int Heap::Right(int i)
+inline int Heap::Right(int i)
 {
 	return (i << 1) + 1;
 }
